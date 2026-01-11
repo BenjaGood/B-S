@@ -1,0 +1,221 @@
+/* Overlay FULLSCREEN que cubre TODO */
+.tearIntro{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ===== Mitades ===== */
+.tearHalf{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50vw;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.tearHalf--left{ left: 0; }
+.tearHalf--right{ right: 0; }
+
+.tearPaper{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #ffffff, #f2f2f2);
+}
+
+/* textura sutil de papel (sin imágenes) */
+.tearPaper::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.085;
+  background-image:
+    radial-gradient(circle at 22% 18%, rgba(0,0,0,.14), transparent 58%),
+    radial-gradient(circle at 70% 62%, rgba(0,0,0,.10), transparent 62%),
+    linear-gradient(180deg, rgba(0,0,0,.06), transparent 40%);
+  mix-blend-mode: multiply;
+}
+
+/* leve viñeta para realismo */
+.tearPaper::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(70% 60% at 50% 45%,
+    rgba(0,0,0,.06),
+    rgba(0,0,0,.16)
+  );
+  opacity:.7;
+}
+
+/* brillo suave que reacciona al “romper” */
+.tearLight{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(55% 55% at 50% 50%,
+    rgba(255,255,255,.85),
+    rgba(255,255,255,0) 60%
+  );
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+/* ===== Bordes rasgados (simulados con clip-path) ===== */
+/* Cada mitad “recorta” una línea irregular hacia el centro */
+.tearHalf--left .tearPaper{
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    98% 8%,
+    100% 16%,
+    97% 26%,
+    100% 36%,
+    96% 48%,
+    100% 60%,
+    97% 70%,
+    100% 82%,
+    98% 92%,
+    100% 100%,
+    0 100%
+  );
+}
+
+.tearHalf--right .tearPaper{
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    2% 92%,
+    0 82%,
+    3% 70%,
+    0 60%,
+    4% 48%,
+    0 36%,
+    3% 26%,
+    0 16%,
+    2% 8%
+  );
+}
+
+/* “Fibra” del rasgado (línea fina) */
+.tearEdge{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  opacity: .9;
+  pointer-events:none;
+  filter: blur(.2px);
+}
+
+.tearEdge--right{
+  right: -10px;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,.18),
+    rgba(0,0,0,.06),
+    rgba(255,255,255,.65)
+  );
+}
+
+.tearEdge--left{
+  left: -10px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.65),
+    rgba(0,0,0,.06),
+    rgba(0,0,0,.18)
+  );
+}
+
+/* ===== Sello dorado ===== */
+.tearSeal{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 98px;
+  height: 98px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  z-index: 3;
+
+  background: radial-gradient(circle at 28% 25%,
+    #fff7bf 0%,
+    #f5d46b 26%,
+    #c79a2b 60%,
+    #875f10 100%
+  );
+
+  border: 1px solid rgba(0,0,0,.18);
+  box-shadow:
+    0 26px 70px rgba(0,0,0,.45),
+    inset 0 2px 0 rgba(255,255,255,.35),
+    inset 0 -12px 18px rgba(0,0,0,.18);
+
+  transition: transform 520ms cubic-bezier(.2,.9,.2,1), opacity 320ms ease;
+}
+
+.tearSeal__inner{
+  font-family: 'Great Vibes', cursive;
+  font-size: 36px;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 12px 30px rgba(0,0,0,.35);
+  opacity: .96;
+}
+
+/* Grieta (flash) */
+.tearCrack{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(520px, 92vw);
+  height: min(520px, 92vw);
+  transform: translate(-50%,-50%);
+  z-index: 4;
+  opacity: 0;
+  pointer-events:none;
+
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(0,0,0,.55) 50%, transparent 51%),
+    linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.85) 50%, transparent 50.5%);
+  mix-blend-mode: multiply;
+  filter: blur(.25px);
+}
+
+/* ===== Animación por fases ===== */
+
+/* crack: prende grieta y brillo */
+.tearIntro--crack .tearCrack{ opacity: .75; }
+.tearIntro--crack .tearLight{ opacity: .55; }
+.tearIntro--crack .tearSeal{
+  transform: translate(-50%,-50%) rotate(-2deg) scale(.98);
+}
+
+/* tear: se separan las mitades con easing suave */
+.tearIntro--tear .tearCrack{ opacity: 0; }
+.tearIntro--tear .tearSeal{ opacity: 0; transform: translate(-50%,-50%) scale(.90); }
+
+/* movimiento */
+.tearHalf{
+  transition: transform 1050ms cubic-bezier(.22,.9,.18,1);
+}
+
+/* izquierda se va a la izquierda, derecha a la derecha */
+.tearIntro--tear .tearHalf--left{ transform: translateX(-56vw); }
+.tearIntro--tear .tearHalf--right{ transform: translateX(56vw); }
+
+/* done: quita todo (por si acaso) */
+.tearIntro--done{
+  opacity: 0;
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .tearHalf, .tearSeal, .tearLight{
+    transition: none !important;
+  }
+}

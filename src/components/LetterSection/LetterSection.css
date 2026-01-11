@@ -1,0 +1,153 @@
+/* Sección full screen */
+.letter{
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: clamp(40px, 6vw, 80px) 18px;
+}
+
+/* Fondo foto */
+.letter__bg{
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: 50% 55%;
+  transform: scale(1.03);
+}
+
+/* Filtro blanco/crema como referencia */
+.letter__bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,0.78),
+      rgba(255,255,255,0.60) 55%,
+      rgba(255,255,255,0.78)
+    );
+}
+
+/* Card principal (papel) */
+.letter__card{
+  position: relative;
+  z-index: 2;
+  width: min(640px, 92vw);
+  padding: clamp(22px, 4.8vw, 40px);
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.20);
+
+  text-align: center;
+}
+
+/* textura papel sutil */
+.letter__card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 18px;
+  pointer-events:none;
+  opacity: .06;
+  background-image:
+    radial-gradient(circle at 22% 18%, rgba(0,0,0,.25), transparent 60%),
+    radial-gradient(circle at 70% 72%, rgba(0,0,0,.18), transparent 62%);
+  mix-blend-mode: multiply;
+}
+
+/* Tipografía similar a referencia */
+.letter__script{
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(38px, 7vw, 64px);
+  color: rgba(0,0,0,0.88);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.letter__title{
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: clamp(26px, 4.2vw, 40px);
+  color: rgba(0,0,0,0.90);
+}
+
+/* Línea fina */
+.letter__rule{
+  width: 64%;
+  height: 1px;
+  margin: 18px auto 16px;
+  background: rgba(0,0,0,0.18);
+}
+
+/* Texto */
+.letter__text{
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.85;
+  color: rgba(0,0,0,0.78);
+}
+
+/* Firma */
+.letter__sign{
+  margin-top: 18px;
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(26px, 5.2vw, 42px);
+  color: rgba(0,0,0,0.86);
+}
+
+/* Móvil: más aire */
+@media (max-width: 420px){
+  .letter__rule{ width: 78%; }
+  .letter__card{ border-radius: 16px; }
+}
+
+/* ===== Reveal moderno al hacer scroll ===== */
+.letter__reveal{
+  position: relative;
+  z-index: 2;
+
+  opacity: 0;
+  transform: translateY(22px) scale(.985);
+  filter: blur(10px);
+  transition:
+    opacity 900ms cubic-bezier(.2,.9,.2,1),
+    transform 900ms cubic-bezier(.2,.9,.2,1),
+    filter 900ms cubic-bezier(.2,.9,.2,1);
+  will-change: opacity, transform, filter;
+}
+
+.letter__reveal.isIn{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* micro “float” súper sutil (opcional, premium) */
+@media (prefers-reduced-motion: no-preference){
+  .letter__reveal.isIn{
+    animation: letterFloat 6s ease-in-out 1.1s infinite;
+  }
+}
+
+@keyframes letterFloat{
+  0%,100%{ transform: translateY(0) scale(1); remember: 0; }
+  50%{ transform: translateY(-6px) scale(1); }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .letter__reveal{
+    transition: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
+}

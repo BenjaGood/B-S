@@ -1,0 +1,351 @@
+/* =========================================================
+   CreditsPage — Hero Logo + Starfield (NO OVERLAP FIXED)
+   ========================================================= */
+
+.creditsPage{
+  position: relative;
+  min-height: 100vh;
+  padding: 84px 18px 72px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+
+  background:
+    radial-gradient(900px 600px at 50% 18%, rgba(255,140,60,0.18), transparent 62%),
+    radial-gradient(700px 500px at 80% 30%, rgba(197,164,126,0.12), transparent 60%),
+    linear-gradient(180deg, #060609 0%, #030305 70%, #020203 100%);
+  color: #fff;
+}
+
+/* =========================================================
+   Starfield
+   ========================================================= */
+
+.creditsStars{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.9;
+
+  background-image:
+    radial-gradient(1px 1px at 12px 18px, rgba(255,255,255,.95), transparent),
+    radial-gradient(1px 1px at 48px 64px, rgba(255,255,255,.75), transparent),
+    radial-gradient(1.2px 1.2px at 96px 28px, rgba(255,255,255,.85), transparent),
+    radial-gradient(1px 1px at 140px 92px, rgba(255,255,255,.7), transparent),
+    radial-gradient(1.4px 1.4px at 180px 40px, rgba(255,255,255,.9), transparent);
+
+  background-size: 240px 180px;
+  animation: starsDrift 22s linear infinite;
+}
+
+@keyframes starsDrift{
+  from { transform: translate(0,0); }
+  to   { transform: translate(-140px, 90px); }
+}
+
+/* =========================================================
+   Ambient Glow
+   ========================================================= */
+
+.creditsGlow{
+  position: absolute;
+  inset: -55%;
+  z-index: 1;
+  background:
+    radial-gradient(640px 640px at 50% 22%, rgba(255,140,60,0.26), transparent 68%),
+    radial-gradient(520px 520px at 65% 38%, rgba(255,255,255,0.08), transparent 70%);
+  filter: blur(34px);
+  pointer-events: none;
+}
+
+/* =========================================================
+   Wrapper / Reveal
+   ========================================================= */
+
+.creditsWrap{
+  position: relative;
+  z-index: 2;
+  width: min(860px, 100%);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.creditsWrap.isIn{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+
+.creditsHead{
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.creditsKicker{
+  font-family: "Cormorant Garamond", serif;
+  font-size: 14px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.72);
+}
+
+/* =========================================================
+   HERO LOGO (FREE FLOATING)
+   ========================================================= */
+
+.creditsHeroLogo{
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: 26px auto 36px;
+  display: grid;
+  place-items: center;
+}
+
+.creditsHeroImg{
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 0 30px rgba(255,140,60,.7))
+    drop-shadow(0 0 72px rgba(255,140,60,.45));
+
+  animation: logoPulse 3.4s ease-in-out infinite;
+}
+
+@keyframes logoPulse{
+  0%,100%{ transform: scale(.97); }
+  50%{ transform: scale(1.06); }
+}
+
+/* =========================================================
+   Orbital Rings
+   ========================================================= */
+
+.creditsRing{
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255,140,60,.28);
+  box-shadow: 0 0 54px rgba(255,140,60,.25);
+  animation: spin 12s linear infinite;
+  pointer-events: none;
+}
+
+.creditsRing--b{
+  inset: 26px;
+  opacity: .55;
+  animation-duration: 18s;
+}
+
+.creditsRing--c{
+  inset: 52px;
+  opacity: .35;
+  animation-duration: 26s;
+}
+
+@keyframes spin{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+}
+
+/* =========================================================
+   Card (FIX: flex column + gap + overflow)
+   ========================================================= */
+
+.creditsCard{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 22px;
+  padding: 20px;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 26px 70px rgba(0,0,0,.5);
+
+  /* ✅ prevents overlaps */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+/* Brand row */
+.creditsBrandRow{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.creditsMiniLogo{
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+/* Brand text */
+.creditsBrandName{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: .20em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.creditsBrandSub{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 12px;
+  opacity: .65;
+  line-height: 1.2;
+}
+
+/* Divider */
+.creditsDivider{
+  height: 1px;
+  background: rgba(255,255,255,.14);
+  margin: 2px 0;
+}
+
+/* =========================================================
+   Roles
+   ========================================================= */
+
+.creditsGrid{
+  display: grid;
+  gap: 12px;
+}
+
+.creditsItem{
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.creditsLabel{
+  font-family: "Cormorant Garamond", serif;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: .6;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.creditsValue{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+/* =========================================================
+   Button (FIX: block + stable height + no margin stacking)
+   ========================================================= */
+
+.creditsBtn{
+  /* ✅ no overlap: layout-stable */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 46px;
+  padding: 14px 18px;
+
+  border-radius: 999px;
+  text-align: center;
+  text-decoration: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,140,60,0.62),
+    rgba(255,140,60,0.28)
+  );
+
+  border: 1px solid rgba(255,140,60,0.60);
+  color: rgba(255,255,255,0.96);
+
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  line-height: 1;
+
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.55),
+    0 0 28px rgba(255,140,60,0.22),
+    0 0 0 1px rgba(255,255,255,0.08) inset;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    filter .18s ease,
+    background .18s ease,
+    border-color .18s ease;
+}
+
+.creditsBtn:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,140,60,0.76),
+    rgba(255,140,60,0.34)
+  );
+
+  border-color: rgba(255,180,120,0.75);
+
+  box-shadow:
+    0 18px 44px rgba(0,0,0,0.62),
+    0 0 40px rgba(255,140,60,0.28),
+    0 0 0 1px rgba(255,255,255,0.12) inset;
+}
+
+.creditsBtn:active{
+  transform: translateY(0px);
+  filter: brightness(0.98);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.55),
+    0 0 22px rgba(255,140,60,0.18),
+    0 0 0 1px rgba(255,255,255,0.10) inset;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+
+.creditsFooter{
+  margin-top: 20px;
+  text-align: center;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 12px;
+  opacity: .7;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 720px){
+  .creditsHeroLogo{
+    width: 220px;
+    height: 220px;
+  }
+
+  .creditsHeroImg{
+    width: 120px;
+    height: 120px;
+  }
+}

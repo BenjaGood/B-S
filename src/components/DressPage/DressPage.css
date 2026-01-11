@@ -1,0 +1,238 @@
+/* src/components/DressPage/DressPage.css */
+.dress, .dress *{ box-sizing: border-box; }
+
+.dress{
+  position: relative;
+  width: 100%;
+  min-height: 100svh;          /* ✅ llena la pantalla SIN afectar otras secciones */
+  overflow: hidden;            /* ✅ recorta SOLO el fondo/velo dentro de esta sección */
+  display: grid;
+  place-items: center;
+  padding: clamp(40px, 6vw, 80px) 18px;
+
+  /* ✅ anchors con nav sticky */
+  scroll-margin-top: var(--navH, 64px);
+}
+
+/* Fondo (solo dentro de esta sección) */
+.dress__bg{
+  position: absolute;          /* ✅ NO fixed */
+  inset: 0;
+  background-size: cover;
+  background-position: 50% 55%;
+  transform: scale(1.03);
+  will-change: transform;
+  z-index: 0;
+}
+
+/* Velo blanco (solo dentro de esta sección) */
+.dress__veil{
+  position: absolute;          /* ✅ NO fixed */
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.90),
+    rgba(255,255,255,0.72) 55%,
+    rgba(255,255,255,0.90)
+  );
+}
+
+.dress__reveal{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* Papel */
+.dress__paper{
+  width: min(920px, 94vw);
+  border-radius: 18px;
+  padding: clamp(22px, 4.8vw, 44px);
+
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(20px) scale(.985);
+  filter: blur(10px);
+  will-change: opacity, transform, filter;
+}
+
+/* textura papel */
+.dress__paper::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 18px;
+  pointer-events:none;
+  opacity: .06;
+  background-image:
+    radial-gradient(circle at 22% 18%, rgba(0,0,0,.25), transparent 60%),
+    radial-gradient(circle at 70% 72%, rgba(0,0,0,.18), transparent 62%);
+  mix-blend-mode: multiply;
+}
+
+.dress__head{ position: relative; z-index: 1; }
+
+.dress__title{
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(26px, 3.6vw, 40px);
+  color: rgba(0,0,0,0.84);
+  letter-spacing: .02em;
+}
+
+.dress__rule{
+  width: min(520px, 70%);
+  height: 1px;
+  margin: 14px auto 0;
+  background: rgba(0,0,0,0.16);
+}
+
+/* Lado a lado siempre */
+.dress__grid{
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 18px;
+  align-items: start;
+
+  width: 100%;
+  max-width: 100%;
+}
+
+.dress__divider{
+  width: 1px;
+  height: 100%;
+  min-height: 220px;
+  background: rgba(0,0,0,0.14);
+  border-radius: 1px;
+}
+
+.dress__col{
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  text-align: center;
+}
+
+.dress__kicker{
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 12px;
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.52);
+}
+
+/* cuadro controlado */
+.dress__tile{
+  width: clamp(110px, 20vw, 150px);
+  height: clamp(110px, 20vw, 150px);
+
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(0,0,0,0.085);
+  border: 1px solid rgba(0,0,0,0.10);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  overflow: hidden;
+}
+
+.dress__icon{
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  display: block;
+
+  opacity: 0.96;
+  filter: drop-shadow(0 14px 28px rgba(0,0,0,0.18));
+}
+
+.dress__caption{
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: rgba(0,0,0,0.74);
+  letter-spacing: .02em;
+}
+
+/* Nota */
+.dress__note{
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 12px;
+  letter-spacing: .02em;
+  color: rgba(0,0,0,0.60);
+
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,0.10);
+}
+
+.dress__noteLabel{
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+/* Animaciones */
+.dress.isIn .dress__bg{
+  animation: dressKenBurns 12s ease-out forwards;
+}
+
+.dress.isIn .dress__paper{
+  animation: dressPaperIn 820ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+@keyframes dressPaperIn{
+  to{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes dressKenBurns{
+  from{ transform: scale(1.03); }
+  to{ transform: scale(1.08); }
+}
+
+/* móviles muy chicos */
+@media (max-width: 420px){
+  .dress__grid{ gap: 12px; }
+  .dress__tile{
+    width: clamp(96px, 22vw, 130px);
+    height: clamp(96px, 22vw, 130px);
+    border-radius: 18px;
+  }
+  .dress__kicker{ font-size: 11px; letter-spacing: .30em; }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .dress__bg{ animation: none !important; transform: scale(1.03); }
+  .dress__paper{
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,298 @@
+.final{
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: clamp(40px, 6vw, 86px) 18px;
+}
+
+/* Fondo */
+.final__bg{
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: 50% 55%;
+  transform: scale(1.03);
+  will-change: transform;
+}
+
+/* Velo suave */
+.final__veil{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.90),
+    rgba(255,255,255,0.70) 55%,
+    rgba(255,255,255,0.90)
+  );
+}
+
+/* Reveal container */
+.final__reveal{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* Card */
+.final__card{
+  width: min(700px, 92vw);
+  border-radius: 20px;
+  padding: clamp(26px, 5vw, 44px);
+
+  background: rgba(255,255,255,0.94);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(18px) scale(.985);
+  filter: blur(10px);
+  will-change: opacity, transform, filter;
+}
+
+/* textura sutil */
+.final__card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 20px;
+  pointer-events:none;
+  opacity: .05;
+  background-image:
+    radial-gradient(circle at 22% 18%, rgba(0,0,0,.25), transparent 60%),
+    radial-gradient(circle at 70% 72%, rgba(0,0,0,.18), transparent 62%);
+  mix-blend-mode: multiply;
+}
+
+/* “sparkle” suave */
+.final__spark{
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(420px 320px at 40% 30%, rgba(197,164,126,0.22), transparent 60%),
+    radial-gradient(520px 380px at 70% 60%, rgba(0,0,0,0.06), transparent 65%);
+  filter: blur(18px);
+  opacity: 0.9;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+/* Script title with shimmer */
+.final__scriptWrap{
+  position: relative;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.final__script{
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(56px, 8.5vw, 92px);
+  line-height: .95;
+  color: rgba(0,0,0,0.90);
+
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* shimmer line */
+.final__scriptWrap::after{
+  content:"";
+  position:absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  width: min(520px, 70%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(197,164,126,0.55),
+    rgba(0,0,0,0.10),
+    rgba(197,164,126,0.55),
+    transparent
+  );
+  opacity: 0;
+}
+
+/* Body text */
+.final__text{
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.85;
+  color: rgba(0,0,0,0.74);
+
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Signature */
+.final__signature{
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.52);
+
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.final__signature span{
+  color: rgba(0,0,0,0.72);
+  font-weight: 700;
+}
+
+/* =========================================================
+   Countdown (NEW)
+   ========================================================= */
+
+.final__count{
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.final__countLabel{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: .08em;
+  color: rgba(0,0,0,0.70);
+  margin-bottom: 10px;
+}
+
+.final__countGrid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+
+.final__unit{
+  border-radius: 16px;
+  padding: 12px 10px;
+
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.final__num{
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: .08em;
+  color: rgba(0,0,0,0.88);
+}
+
+.final__cap{
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.56);
+}
+
+.final__countDone{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: #c5a47e;
+  font-weight: 700;
+}
+
+/* ===== Activación ===== */
+.final.isIn .final__bg{
+  animation: finalKenBurns 12s ease-out forwards;
+}
+
+.final.isIn .final__card{
+  animation: finalCardIn 820ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+.final.isIn .final__script{
+  animation: finalTextIn 900ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: 220ms;
+}
+
+.final.isIn .final__text{
+  animation: finalTextIn 900ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: 420ms;
+}
+
+.final.isIn .final__signature{
+  animation: finalTextIn 900ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: 620ms;
+}
+
+.final.isIn .final__count{
+  animation: finalTextIn 900ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: 780ms;
+}
+
+.final.isIn .final__scriptWrap::after{
+  animation: shimmerIn 1100ms ease forwards;
+  animation-delay: 520ms;
+}
+
+/* Animations */
+@keyframes finalCardIn{
+  to{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes finalTextIn{
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmerIn{
+  0%{ opacity: 0; transform: translateX(-50%) scaleX(0.85); }
+  100%{ opacity: 1; transform: translateX(-50%) scaleX(1); }
+}
+
+@keyframes finalKenBurns{
+  from{ transform: scale(1.03); }
+  to{ transform: scale(1.08); }
+}
+
+/* Mobile tweaks */
+@media (max-width: 520px){
+  .final__countGrid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 380px){
+  .final__text{ font-size: 17px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .final__bg{ animation: none !important; transform: scale(1.03); }
+  .final__card, .final__script, .final__text, .final__signature, .final__count, .final__scriptWrap::after{
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+}
