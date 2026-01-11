@@ -8,7 +8,7 @@ export default function CreditsPage() {
   })
 
   const aetherialUrl = 'https://www.aetherial.tech'
-  const logoSrc = '/public/aetherial.png'
+  const logoSrc = '/aetherial.png'
 
   return (
     <section className="creditsPage" id="credits">
